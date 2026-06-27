@@ -1,0 +1,21 @@
+# === Nix / NixOS / Flakes ===
+# Menyembunyikan folder hasil build (jika Anda pernah mengetik nix build)
+result
+result-*
+
+# === File Rahasia / Sensitif (Opsional tapi Penting) ===
+# Jika suatu hari Anda menyimpan password atau token API di file terpisah
+*.secret
+*.env
+secret.nix
+
+# === Backup & File Sementara ===
+# File sementara yang dibuat oleh teks editor seperti Nano atau Vim saat mengedit
+*.swp
+*~
+.nix-*.bak
+
+# === System & OS Trash ===
+# Menyembunyikan file sampah otomatis dari sistem operasi / file manager
+.DS_Store
+Thumbs.db
