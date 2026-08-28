@@ -18,22 +18,19 @@
   hardware.graphics = {
     enable32Bit = true;
   };
-  programs.hyprland = {
+  programs.niri = {
     enable = true;
-    xwayland = true;
-    # package = pkgs.hyprland;
-    # portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
-  virtualisation.virtualbox.guest.enable = true;
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd start-hyprland";
-  #       user = "greeter";
-  #     };
-  #   };
-  # };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${config.programs.niri.package}/bin/niri-session";
+        user = "figuran04";
+      };
+    };
+  };
+systemd.user.services.niri.enableDefaultPath = false;
   services.xserver.enable = false;
   services.openssh.enable = true;
   networking.firewall.allowedTCPPorts = [
@@ -45,16 +42,12 @@
       "wheel"
       "networkmanager"
     ];
-    packages = with pkgs; [
-      tree
-    ];
   };
   environment.systemPackages = with pkgs; [
     vim
     wget
     git
-    foot
-    alacritty
+    xwayland-satellite
   ];
   environment.defaultPackages = [];
   documentation.enable = false;

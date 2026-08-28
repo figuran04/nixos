@@ -1,5 +1,5 @@
 {
-  description = "NixOS + Hyprland + Home Manager";
+  description = "NixOS + Niri + Home Manager";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
@@ -25,7 +25,7 @@
             extraSpecialArgs = {
               inherit inputs;
             };
-          }
+          };
         }
       ];
     };
