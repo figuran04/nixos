@@ -1,27 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  xdg.configFile."niri/config.kdl".text = ''
-    input {
-      keyboard {
-        xkb {
-          layout "us"
-        }
-      }
-    }
-
-    layout {
-      gaps 10
-      center-focused-column "never"
-    }
-
-    prefer-no-csd
-
-    binds {
-      Mod+Return { spawn "alacritty"; }
-      Mod+D { spawn "fuzzel"; }
-      Mod+Q { close-window; }
-      Mod+M { quit; }
-    }
-  '';
+  xdg.configFile."niri/config.kdl".source = ../niri/config.kdl;
+  xdg.configFile."niri/binds.kdl".source = ../niri/binds.kdl;
+  xdg.configFile."niri/input.kdl".source = ../niri/input.kdl;
+  xdg.configFile."niri/startup.kdl".source = ../niri/startup.kdl;
 }

@@ -1,0 +1,6 @@
+// startup.kdl — processes to spawn when the Niri session starts.
+// Uses `spawn-at-startup` (or `spawn-sh-at-startup` for shell commands).
+// Uncomment / add as needed. Lines for programs you don't have will error,
+// so only enable what is installed.
+
+// spawn-at-startup "waybar"

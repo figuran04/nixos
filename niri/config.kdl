@@ -1,0 +1,60 @@
+// Niri configuration — modular baseline.
+// Split into includes (input/binds/startup). Based on the default Niri config.
+
+include "input.kdl"
+include "binds.kdl"
+include "startup.kdl"
+
+// =========================================================
+// Layout
+// =========================================================
+layout {
+    gaps 8
+
+    center-focused-column "never"
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 2
+    }
+
+    border {
+        off
+    }
+}
+
+// Draw focus ring/border around windows that omit CSD.
+prefer-no-csd
+
+// XWayland support via xwayland-satellite.
+xwayland-satellite {
+}
+
+// "Important Hotkeys" overlay.
+hotkey-overlay {
+    // skip-at-startup
+}
+
+// Where screenshots are saved.
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// Animations (uncomment `off` to disable).
+animations {
+}
+
+// =========================================================
+// Window rules (from default config)
+// =========================================================
+
+// Work around WezTerm's initial configure bug.
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
