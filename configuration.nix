@@ -24,7 +24,6 @@
   };
   security.rtkit.enable = true;
   services.upower.enable = true;
-  services.bluez.enable = true;
   hardware.bluetooth.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -55,14 +54,12 @@
   networking.firewall.allowedTCPPorts = [
     22
   ];
-  users.mutableUsers = false;
   users.users.figuran04 = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
     ];
-    hashedPasswordFile = ./secrets/figuran04.hash;
   };
   environment.systemPackages = with pkgs; [
     vim

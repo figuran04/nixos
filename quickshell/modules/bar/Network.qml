@@ -5,7 +5,7 @@ MouseArea {
   id: root
   implicitHeight: 20
   implicitWidth: row.width
-  onClicked: Net.toggle()
+  onClicked: Network.toggle()
 
   Row {
     id: row
@@ -13,13 +13,13 @@ MouseArea {
     anchors.verticalCenter: parent.verticalCenter
 
     Text {
-      text: Net.enabled ? "Wifi" : "Off"
-      color: Net.enabled ? "#cdd6f4" : "#f38ba8"
+      text: Network.enabled ? "Wifi" : "Off"
+      color: Network.enabled ? "#cdd6f4" : "#f38ba8"
       font.pixelSize: 13
     }
     Text {
-      visible: Net.ssid !== ""
-      text: Net.ssid
+      visible: Network.ssid !== ""
+      text: Network.ssid
       color: "#a6adc8"
       font.pixelSize: 13
     }
