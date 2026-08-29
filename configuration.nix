@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -18,6 +18,23 @@
   hardware.graphics = {
     enable32Bit = true;
   };
+  services.pipewire = {
+    enable = true;
+    audio.enable = true;
+  };
+  security.rtkit.enable = true;
+  services.upower.enable = true;
+  services.bluez.enable = true;
+  hardware.bluetooth.enable = true;
+
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.amd.updateMicrocode = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
   programs.niri = {
     enable = true;
   };
@@ -30,18 +47,22 @@
       };
     };
   };
-systemd.user.services.niri.enableDefaultPath = false;
   services.xserver.enable = false;
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    # settings.PasswordAuthentication = false;
+  };
   networking.firewall.allowedTCPPorts = [
     22
   ];
+  users.mutableUsers = false;
   users.users.figuran04 = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
     ];
+    hashedPasswordFile = ./secrets/figuran04.hash;
   };
   environment.systemPackages = with pkgs; [
     vim

@@ -4,3 +4,6 @@
 // so only enable what is installed.
 
 // spawn-at-startup "waybar"
+
+// Quickshell desktop shell (bar, tray, notifications, lockscreen, ...)
+spawn-at-startup "quickshell"

@@ -8,6 +8,7 @@ result-*
 *.secret
 *.env
 secret.nix
+secrets/
 
 # === Backup & File Sementara ===
 # File sementara yang dibuat oleh teks editor seperti Nano atau Vim saat mengedit
