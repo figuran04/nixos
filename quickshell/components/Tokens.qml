@@ -1,9 +1,10 @@
 pragma Singleton
+import Quickshell
 import QtQuick
 
 // Material 3 inspired design tokens, mirroring the feel of Caelestia
 // but self-contained (no Caelestia C++ plugin required).
-QtObject {
+Singleton {
     id: root
 
     readonly property QtObject spacing: QtObject {

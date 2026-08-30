@@ -1,4 +1,5 @@
 pragma Singleton
+import Quickshell
 import QtQuick
 
 // Material Symbols glyph helpers (ligature names).

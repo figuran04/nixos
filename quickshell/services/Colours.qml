@@ -1,4 +1,5 @@
 pragma Singleton
+import Quickshell
 import QtQuick
 
 // Static Material 3 palette generated from a single seed colour.
