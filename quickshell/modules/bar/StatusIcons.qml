@@ -53,6 +53,19 @@ StyledRect {
             visible: Media.player != null
             action: () => root.popoutState.request("media")
         }
+
+        Entry {
+            icon: "content_paste"
+            colour: Colours.palette.m3secondary
+            visible: Clipboard.entries.length > 0
+            action: () => root.popoutState.request("clipboard")
+        }
+
+        Entry {
+            icon: "monitor_heart"
+            colour: Colours.palette.m3primary
+            action: () => root.popoutState.request("dashboard")
+        }
     }
 
     component Entry: Item {

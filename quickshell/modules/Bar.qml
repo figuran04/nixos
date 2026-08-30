@@ -61,6 +61,33 @@ Scope {
                             popoutState: popoutState
                         }
 
+                        Bar.Tray {}
+
+                        Item {
+                            width: Tokens.sizes.bar.innerWidth - Tokens.padding.medium * 2
+                            height: width
+
+                            MaterialIcon {
+                                anchors.centerIn: parent
+                                text: "grid_view"
+                                color: Colours.palette.m3secondary
+                                fontStyle: Tokens.font.icon
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onEntered: parent.opacity = 0.7
+                                onExited: parent.opacity = 1
+                                onClicked: LauncherState.toggle()
+                            }
+
+                            Behavior on opacity {
+                                Anim { type: Anim.DefaultEffects }
+                            }
+                        }
+
                         Bar.Clock {}
 
                         Bar.Power {
@@ -101,6 +128,13 @@ Scope {
                     popoutState: popoutState
                     screen: win.screen
                 }
+            }
+
+            // Transient "now focused" popup shown on window switch.
+            Bar.ActiveWindow {
+                anchorWindow: win
+                panelWidth: win.width
+                dockWidth: dock.width
             }
         }
     }

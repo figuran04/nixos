@@ -45,6 +45,10 @@ StyledClippingRect {
                     return compBattery;
                 case "media":
                     return compMedia;
+                case "clipboard":
+                    return compClipboard;
+                case "dashboard":
+                    return compDashboard;
                 case "power":
                     return compPower;
                 }
@@ -58,5 +62,7 @@ StyledClippingRect {
     Component { id: compBluetooth; Popouts.BluetoothPopout {} }
     Component { id: compBattery; Popouts.BatteryPopout {} }
     Component { id: compMedia; Popouts.MediaPopout {} }
+    Component { id: compClipboard; Popouts.ClipboardPopout {} }
+    Component { id: compDashboard; Popouts.DashboardPopout {} }
     Component { id: compPower; Popouts.PowerPopout { screen: root.screen; popoutState: root.popoutState } }
 }

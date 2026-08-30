@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Io
 import "../../components"
 import "../../services"
 
@@ -12,60 +11,7 @@ StyledRect {
     implicitWidth: col.implicitWidth + Tokens.padding.medium * 2
     implicitHeight: col.implicitHeight + Tokens.padding.medium * 2
 
-    property var workspaces: []
-    property var windows: []
-
     readonly property int entry: Tokens.sizes.bar.innerWidth - Tokens.padding.medium * 2
-
-    function applyWorkspaces(list: var): void {
-        root.workspaces = Array.isArray(list) ? list : (list?.workspaces ?? []);
-    }
-
-    function setActive(id: string): void {
-        let changed = false;
-        const next = root.workspaces.map(w => {
-            const active = w.id === id;
-            if (w.is_active !== active)
-                changed = true;
-            return Object.assign({}, w, { is_active: active });
-        });
-        if (changed)
-            root.workspaces = next;
-    }
-
-    function applyWindows(list: var): void {
-        root.windows = Array.isArray(list) ? list.slice() : (list?.windows?.slice() ?? []);
-    }
-
-    function upsertWindow(w: var): void {
-        if (!w || w.id === undefined)
-            return;
-        const idx = root.windows.findIndex(x => x.id === w.id);
-        const next = root.windows.slice();
-        if (idx >= 0)
-            next[idx] = Object.assign({}, next[idx], w);
-        else
-            next.push(Object.assign({ layout: {} }, w));
-        root.windows = next;
-    }
-
-    function removeWindow(id: var): void {
-        const idx = root.windows.findIndex(x => x.id === id);
-        if (idx >= 0) {
-            const next = root.windows.slice();
-            next.splice(idx, 1);
-            root.windows = next;
-        }
-    }
-
-    function windowsOn(wsId: var): var {
-        return root.windows.filter(w => w.workspace_id !== null && w.workspace_id !== undefined && String(w.workspace_id) === String(wsId));
-    }
-
-    function focusWindow(id: var): void {
-        focusProc.command = ["niri", "msg", "action", "focus-window", "--id", String(id)];
-        focusProc.running = true;
-    }
 
     ColumnLayout {
         id: col
@@ -75,7 +21,7 @@ StyledRect {
         spacing: Tokens.spacing.small
 
         Repeater {
-            model: root.workspaces
+            model: Niri.workspaces
 
             ColumnLayout {
                 id: ws
@@ -105,16 +51,13 @@ StyledRect {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: {
-                            focusProc.command = ["niri", "msg", "action", "focus-workspace", "--workspace", String(modelData.idx + 1)];
-                            focusProc.running = true;
-                        }
+                        onClicked: Niri.focusWorkspace(modelData.idx)
                     }
                 }
 
                 // App icons for windows on this workspace.
                 Repeater {
-                    model: root.windowsOn(modelData.id)
+                    model: Niri.windowsOn(modelData.id)
 
                     Rectangle {
                         id: icon
@@ -124,7 +67,7 @@ StyledRect {
                         width: root.entry
                         height: root.entry
                         radius: Tokens.rounding.full
-                        color: modelData.id === root.focusedWindowId ? Colours.palette.m3secondaryContainer : "transparent"
+                        color: modelData.id === Niri.focusedWindowId ? Colours.palette.m3secondaryContainer : "transparent"
                         border.color: "transparent"
                         border.width: 0
 
@@ -142,69 +85,11 @@ StyledRect {
                             anchors.fill: parent
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
-                            onClicked: root.focusWindow(modelData.id)
+                            onClicked: Niri.focusWindow(modelData.id)
                         }
                     }
                 }
             }
         }
-    }
-
-    readonly property var focusedWindowId: root.windows.find(w => w.is_focused === true)?.id ?? ""
-
-    // Initial load (niri returns the array directly here).
-    Process {
-        id: initialWs
-        running: true
-        command: ["niri", "msg", "-j", "workspaces"]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    root.applyWorkspaces(JSON.parse(text));
-                } catch (e) {}
-            }
-        }
-    }
-
-    Process {
-        id: initialWindows
-        running: true
-        command: ["niri", "msg", "-j", "windows"]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                try {
-                    root.applyWindows(JSON.parse(text)?.windows);
-                } catch (e) {}
-            }
-        }
-    }
-
-    // Live updates via the niri event stream (no polling).
-    Process {
-        id: eventStream
-        running: true
-        command: ["niri", "msg", "-j", "event-stream"]
-        stdout: SplitParser {
-            onRead: data => {
-                try {
-                    const e = JSON.parse(data);
-                    if (e?.WorkspacesChanged)
-                        root.applyWorkspaces(e.WorkspacesChanged);
-                    else if (e?.WorkspaceActivated)
-                        root.setActive(e.WorkspaceActivated.id);
-                    else if (e?.WindowsChanged)
-                        root.applyWindows(e.WindowsChanged.windows ?? []);
-                    else if (e?.WindowClosed)
-                        root.removeWindow(e.WindowClosed.id);
-                    else if (e?.WindowOpenedOrChanged)
-                        root.upsertWindow(e.WindowOpenedOrChanged.window);
-                } catch (e) {}
-            }
-        }
-    }
-
-    Process {
-        id: focusProc
-        running: false
     }
 }
