@@ -34,12 +34,6 @@ Scope {
                     Layout.fillWidth: true
                 }
 
-                Bar.Popout {
-                    popoutState: popoutState
-                    screen: win.screen
-                    Layout.alignment: Qt.AlignVCenter
-                }
-
                 StyledRect {
                     id: dock
 
@@ -73,6 +67,41 @@ Scope {
                             popoutState: popoutState
                         }
                     }
+                }
+            }
+
+            // The active popout is a separate floating window anchored to the
+            // left of the dock (like Caelestia's popout wrapper), so a large
+            // popout never inflates the bar or breaks through the screen.
+            PopupWindow {
+                id: popout
+
+                anchor.window: win
+
+                color: "transparent"
+                visible: popoutState.hasCurrent
+
+                implicitWidth: content.implicitWidth
+                implicitHeight: content.implicitHeight
+                width: content.implicitWidth
+                height: content.implicitHeight
+
+                readonly property int sideGap: Tokens.spacing.medium
+
+                anchor.rect.x: win.width - dock.width - width - popout.sideGap
+                anchor.rect.y: Math.max(
+                    Tokens.padding.medium,
+                    Math.min(
+                        win.height - height - Tokens.padding.medium,
+                        (win.height - height) / 2
+                    )
+                )
+
+                Bar.Popout {
+                    id: content
+
+                    popoutState: popoutState
+                    screen: win.screen
                 }
             }
         }

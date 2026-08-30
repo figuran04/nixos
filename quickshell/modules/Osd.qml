@@ -35,8 +35,13 @@ Scope {
 
     Connections {
         target: Audio
-        onVolumeChanged: ctrl.show()
-        onMutedChanged: ctrl.show()
+
+        function onVolumeChanged() {
+            ctrl.show();
+        }
+        function onMutedChanged() {
+            ctrl.show();
+        }
     }
 
     Variants {
