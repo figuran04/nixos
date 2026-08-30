@@ -2,6 +2,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Wayland
+import Quickshell.Io
 import "../components"
 import "../services"
 
