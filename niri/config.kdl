@@ -58,3 +58,12 @@ window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
 }
+
+// Round the corners of all windows so they match the shell's M3 corners
+// (no match = applies to every window). clip-to-geometry also hides
+// client-side shadows and rounds the window itself, not just the border.
+// Pairs with `prefer-no-csd` above.
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}

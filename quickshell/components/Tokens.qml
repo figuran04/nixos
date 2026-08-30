@@ -35,9 +35,9 @@ Singleton {
     readonly property QtObject sizes: QtObject {
         readonly property QtObject bar: QtObject {
             // Width of the vertical dock on the right side.
-            readonly property int innerWidth: 76
-            readonly property int outerWidth: 86
-            readonly property int entrySize: 44
+            readonly property int innerWidth: 56
+            readonly property int outerWidth: 66
+            readonly property int entrySize: 36
         }
     }
 

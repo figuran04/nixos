@@ -64,6 +64,7 @@ StyledRect {
 
     function focusWindow(id: var): void {
         focusProc.command = ["niri", "msg", "action", "focus-window", "--id", String(id)];
+        focusProc.running = true;
     }
 
     ColumnLayout {
@@ -104,7 +105,10 @@ StyledRect {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: root.focusProc.command = ["niri", "msg", "action", "focus-workspace", "--workspace", String(modelData.idx + 1)]
+                        onClicked: {
+                            focusProc.command = ["niri", "msg", "action", "focus-workspace", "--workspace", String(modelData.idx + 1)];
+                            focusProc.running = true;
+                        }
                     }
                 }
 
@@ -184,15 +188,15 @@ StyledRect {
             onRead: data => {
                 try {
                     const e = JSON.parse(data);
-                    if (e.WorkspacesChanged)
+                    if (e?.WorkspacesChanged)
                         root.applyWorkspaces(e.WorkspacesChanged);
-                    else if (e.WorkspaceActivated)
+                    else if (e?.WorkspaceActivated)
                         root.setActive(e.WorkspaceActivated.id);
-                    else if (e.WindowsChanged)
-                        root.applyWindows(e.WindowsChanged.windows);
-                    else if (e.WindowClosed)
+                    else if (e?.WindowsChanged)
+                        root.applyWindows(e.WindowsChanged.windows ?? []);
+                    else if (e?.WindowClosed)
                         root.removeWindow(e.WindowClosed.id);
-                    else if (e.WindowOpenedOrChanged)
+                    else if (e?.WindowOpenedOrChanged)
                         root.upsertWindow(e.WindowOpenedOrChanged.window);
                 } catch (e) {}
             }
