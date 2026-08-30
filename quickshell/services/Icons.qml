@@ -26,6 +26,16 @@ Singleton {
         return "wifi";
     }
 
+    // Resolve a themed app icon from a window app_id, falling back gracefully.
+    // Plugin-free: uses Quickshell.iconPath instead of Caelestia's DesktopEntries model.
+    function getAppIcon(name: string, fallback: string): string {
+        if (!name)
+            return fallback ? Quickshell.iconPath(fallback) : "";
+        if (Quickshell.hasThemeIcon(name))
+            return Quickshell.iconPath(name);
+        return fallback ? Quickshell.iconPath(fallback) : Quickshell.iconPath(name);
+    }
+
     function getBatteryIcon(percentage: real, charging: bool): string {
         const p = Math.round(percentage);
         const base = charging ? "battery_charging_" : "battery_";
