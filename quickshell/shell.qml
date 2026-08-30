@@ -5,6 +5,7 @@ import "./services"
 
 ShellRoot {
   Bar {}
+  Osd {}
   Notifications {}
   Lockscreen {}
 }

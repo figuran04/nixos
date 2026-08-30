@@ -17,4 +17,12 @@ Singleton {
     if (sink != null && sink.audio != null)
       sink.audio.muted = !sink.audio.muted;
   }
+
+  function incrementVolume() {
+    setVolume(volume + 0.05);
+  }
+
+  function decrementVolume() {
+    setVolume(volume - 0.05);
+  }
 }
