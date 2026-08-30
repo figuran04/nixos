@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import qs.components
-import qs.services
+import "../../components"
+import "../../services"
 
 StyledRect {
     id: root

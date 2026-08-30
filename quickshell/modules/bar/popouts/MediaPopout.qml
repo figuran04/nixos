@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Services.Mpris
-import qs.components
-import qs.services
+import "../../../components"
+import "../../../services"
 
 ColumnLayout {
     id: root

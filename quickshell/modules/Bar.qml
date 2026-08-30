@@ -1,9 +1,9 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.modules.bar as Bar
-import qs.components
-import qs.services
+import "./bar" as Bar
+import "../components"
+import "../services"
 
 Scope {
     Variants {

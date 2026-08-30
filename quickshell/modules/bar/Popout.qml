@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
-import qs.components
-import qs.services
-import qs.modules.bar.popouts as Popouts
+import "../../components"
+import "../../services"
+import "./popouts" as Popouts
 
 StyledClippingRect {
     id: root

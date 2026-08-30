@@ -2,8 +2,8 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import Quickshell.Wayland
-import qs.components
-import qs.services
+import "../components"
+import "../services"
 
 WlSessionLock {
     id: lock

@@ -1,8 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import qs.services
-import qs.components
+import "../services"
 
 Text {
     id: root
