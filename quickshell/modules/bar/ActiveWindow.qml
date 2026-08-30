@@ -39,10 +39,6 @@ PopupWindow {
         interval: 2500
     }
 
-    Behavior on opacity {
-        Anim { type: Anim.DefaultEffects }
-    }
-
     StyledRect {
         id: card
 

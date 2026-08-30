@@ -25,11 +25,6 @@ Scope {
             property ListModel results: ListModel {}
             property int currentIndex: 0
 
-            opacity: visible ? 1 : 0
-            Behavior on opacity {
-                Anim { type: Anim.DefaultEffects }
-            }
-
             function rebuild(filter: string): void {
                 const idx = Apps.search(filter);
                 win.results.clear();
