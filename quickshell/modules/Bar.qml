@@ -22,7 +22,7 @@ Scope {
 
             exclusiveZone: dock.width + Tokens.padding.large * 2
 
-            PopoutState {
+            Bar.PopoutState {
                 id: popoutState
             }
 
