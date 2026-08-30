@@ -1,4 +1,5 @@
 pragma Singleton
+import Quickshell
 import QtQuick
 
 // Shared visibility state for the application launcher overlay.
