@@ -15,4 +15,10 @@
   ];
 
   programs.home-manager.enable = true;
+
+  home.packages = [
+    pkgs.material-symbols
+    pkgs.noto-fonts
+    pkgs.jetbrains-mono
+  ];
 }

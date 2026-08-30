@@ -1,35 +1,73 @@
 import Quickshell
 import QtQuick
+import QtQuick.Layouts
 import Quickshell.Wayland
-import Quickshell.Io
+import qs.components
+import qs.services
 
 WlSessionLock {
-  id: lock
+    id: lock
 
-  // Lock / unlock from outside the shell, e.g. a Niri keybind:
-  //   niri msg action do-nothing   (then call) quickshell ipc call lockscreen lock
-  IpcHandler {
-    target: "lockscreen"
-    function lock() { lock.locked = true }
-    function unlock() { lock.locked = false }
-  }
-
-  WlSessionLockSurface {
-    Rectangle {
-      anchors.fill: parent
-      color: "#11111b"
+    IpcHandler {
+        target: "lockscreen"
+        function lock() { lock.locked = true }
+        function unlock() { lock.locked = false }
     }
 
-    Text {
-      anchors.centerIn: parent
-      text: "Session locked — click to unlock (demo, no PAM auth)"
-      color: "#cdd6f4"
-      font.pixelSize: 28
-    }
+    WlSessionLockSurface {
+        Rectangle {
+            anchors.fill: parent
+            color: Colours.layer(Colours.palette.m3surfaceContainerLowest, 0.85)
+        }
 
-    MouseArea {
-      anchors.fill: parent
-      onClicked: lock.locked = false
+        StyledRect {
+            anchors.centerIn: parent
+            radius: Tokens.rounding.extraLarge
+            color: Colours.palette.m3surfaceContainerHigh
+            implicitWidth: 320
+            implicitHeight: card.implicitHeight + Tokens.padding.large * 2
+
+            ColumnLayout {
+                id: card
+
+                anchors.centerIn: parent
+                anchors.margins: Tokens.padding.large
+                spacing: Tokens.spacing.medium
+
+                MaterialIcon {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: "lock"
+                    color: Colours.palette.m3primary
+                    fontStyle: Tokens.font.iconLarge
+                }
+
+                StyledText {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: Time.time
+                    font: Tokens.font.titleLarge
+                    color: Colours.palette.m3onSurface
+                }
+
+                StyledText {
+                    Layout.alignment: Qt.AlignHCenter
+                    text: Time.date
+                    font: Tokens.font.bodyLarge
+                    color: Colours.palette.m3onSurfaceVariant
+                }
+
+                StyledText {
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.topMargin: Tokens.spacing.small
+                    text: "Session locked"
+                    font: Tokens.font.bodyMedium
+                    color: Colours.palette.m3onSurfaceVariant
+                }
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: lock.locked = false
+        }
     }
-  }
 }
