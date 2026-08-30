@@ -83,8 +83,6 @@ Scope {
 
                 implicitWidth: content.implicitWidth
                 implicitHeight: content.implicitHeight
-                width: content.implicitWidth
-                height: content.implicitHeight
 
                 readonly property int sideGap: Tokens.spacing.medium
 

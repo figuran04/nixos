@@ -8,7 +8,6 @@ ColumnLayout {
 
     spacing: Tokens.spacing.medium
     implicitWidth: 300
-    implicitHeight: col.implicitHeight
 
     RowLayout {
         StyledText {

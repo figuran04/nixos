@@ -9,7 +9,6 @@ ColumnLayout {
 
     spacing: Tokens.spacing.medium
     implicitWidth: 300
-    implicitHeight: col.implicitHeight
 
     readonly property var player: Media.player
 

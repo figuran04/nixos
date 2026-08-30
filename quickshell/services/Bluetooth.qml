@@ -5,5 +5,5 @@ import QtQuick
 
 Singleton {
   readonly property bool enabled: Bluetooth.defaultAdapter != null && Bluetooth.defaultAdapter.powered
-  readonly property int connected: Bluetooth.devices != null ? Bluetooth.devices.count : 0
+  readonly property int connected: Bluetooth.devices?.count ?? 0
 }
