@@ -149,5 +149,4 @@ PanelWindow {
     }
     }
 
-    onActiveChanged: if (!active) LauncherState.hide()
 }
