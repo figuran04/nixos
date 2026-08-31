@@ -36,13 +36,24 @@ Scope {
                 Repeater {
                     model: server.trackedNotifications
 
-                    delegate: StyledRect {
-                        required property var modelData
+                    delegate: AdaptiveRoundedRect {
+                        id: card
 
-                        radius: Tokens.rounding.large
-                        color: Colours.palette.m3surfaceContainerHigh
+                        required property var modelData
+                        readonly property int notifIndex: index
+                        readonly property int notifCount: server.trackedNotifications.count
+                        readonly property bool isFirst: notifIndex === 0
+                        readonly property bool isLast: notifIndex === notifCount - 1
+                        readonly property bool isSingle: notifCount === 1
+
+                        color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
                         implicitWidth: col.width
                         implicitHeight: body.implicitHeight + Tokens.padding.medium * 2
+
+                        tlRadius: (isSingle || isFirst) ? Tokens.rounding.large : 0
+                        trRadius: Tokens.rounding.large
+                        blRadius: (isSingle || isLast) ? Tokens.rounding.large : 0
+                        brRadius: Tokens.rounding.large
 
                         ColumnLayout {
                             id: body

@@ -4,9 +4,6 @@ import QtQuick.Layouts
 import "../components"
 import "../services"
 
-// On-screen display: a volume HUD that slides in from the right edge whenever
-// the output volume or mute state changes, auto-hides after a short delay, and
-// supports dragging the slider or scrolling the wheel over it.
 Scope {
     id: root
 
@@ -71,13 +68,16 @@ Scope {
                 Anim { type: Anim.Emphasized }
             }
 
-            StyledRect {
+            AdaptiveRoundedRect {
                 id: content
 
                 anchors.fill: parent
 
-                radius: Tokens.rounding.extraLarge
                 color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
+                tlRadius: Tokens.rounding.extraLarge
+                trRadius: 0
+                blRadius: Tokens.rounding.extraLarge
+                brRadius: 0
 
                 opacity: 1 - ctrl.offsetScale
                 Behavior on opacity {

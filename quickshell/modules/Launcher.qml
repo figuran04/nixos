@@ -43,6 +43,18 @@ Scope {
                 }
             }
 
+            Connections {
+                target: LauncherState
+                function onActiveChanged(): void {
+                    if (LauncherState.active) {
+                        input.text = "";
+                        input.focus = true;
+                    } else {
+                        input.focus = false;
+                    }
+                }
+            }
+
             // Transparent backdrop closes the launcher on outside click.
             MouseArea {
                 anchors.fill: parent
@@ -55,9 +67,12 @@ Scope {
                 width: Math.min(win.width * 0.5, 560)
                 height: Math.min(win.height * 0.6, 520)
 
-                StyledClippingRect {
+                AdaptiveRoundedRect {
                     anchors.fill: parent
-                    radius: Tokens.rounding.extraLarge
+                    tlRadius: Tokens.rounding.extraLarge
+                    trRadius: Tokens.rounding.extraLarge
+                    blRadius: Tokens.rounding.extraLarge
+                    brRadius: Tokens.rounding.extraLarge
                     color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.97)
 
                     ColumnLayout {
@@ -86,23 +101,35 @@ Scope {
                                     fontStyle: Tokens.font.icon
                                 }
 
-                                TextInput {
-                                    id: input
+                                Item {
                                     Layout.fillWidth: true
                                     Layout.alignment: Qt.AlignVCenter
-                                    color: Colours.palette.m3onSurface
-                                    font: Tokens.font.bodyLarge
-                                    clip: true
-                                    selectByMouse: true
-                                    verticalAlignment: Text.AlignVCenter
-                                    placeholderText: root.emptyText
-                                    placeholderColor: Colours.palette.m3onSurfaceVariant
+                                    implicitHeight: 28
 
-                                    onTextChanged: win.rebuild(text)
-                                    Keys.onEscapePressed: LauncherState.active = false
-                                    Keys.onReturnPressed: win.launchCurrent()
-                                    Keys.onUpPressed: win.currentIndex = Math.max(0, win.currentIndex - 1)
-                                    Keys.onDownPressed: win.currentIndex = Math.min(win.results.count - 1, win.currentIndex + 1)
+                                    StyledText {
+                                        anchors.fill: parent
+                                        text: root.emptyText
+                                        font: Tokens.font.bodyLarge
+                                        color: Colours.palette.m3onSurfaceVariant
+                                        verticalAlignment: Text.AlignVCenter
+                                        visible: input.text === ""
+                                    }
+
+                                    TextInput {
+                                        id: input
+                                        anchors.fill: parent
+                                        color: Colours.palette.m3onSurface
+                                        font: Tokens.font.bodyLarge
+                                        clip: true
+                                        selectByMouse: true
+                                        verticalAlignment: Text.AlignVCenter
+
+                                        onTextChanged: win.rebuild(text)
+                                        Keys.onEscapePressed: LauncherState.active = false
+                                        Keys.onReturnPressed: win.launchCurrent()
+                                        Keys.onUpPressed: win.currentIndex = Math.max(0, win.currentIndex - 1)
+                                        Keys.onDownPressed: win.currentIndex = Math.min(win.results.count - 1, win.currentIndex + 1)
+                                    }
                                 }
                             }
                         }

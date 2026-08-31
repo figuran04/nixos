@@ -4,27 +4,37 @@ import "../../components"
 import "../../services"
 import "./popouts" as Popouts
 
-StyledClippingRect {
+Item {
     id: root
 
     required property var popoutState
     property var screen
 
-    visible: popoutState.hasCurrent
-    opacity: visible ? 1 : 0
+    readonly property bool isOpen: popoutState.hasCurrent
+    readonly property real cornerR: Tokens.rounding.extraLarge
+    readonly property real concaveR: Tokens.rounding.medium
 
-    Behavior on opacity {
-        Anim { type: Anim.DefaultEffects }
+    implicitWidth: body.implicitWidth + Tokens.padding.large * 2
+    implicitHeight: body.implicitHeight + Tokens.padding.large * 2
+
+    // Background is always drawn (fully-rounded). The corner cut-outs are
+    // driven by isOpen so the panel visibly unwraps/match the dock.
+    AdaptiveRoundedRect {
+        id: bg
+
+        anchors.fill: parent
+
+        color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
+        tlRadius: root.cornerR
+        trRadius: root.cornerR
+        blRadius: root.cornerR
+        brRadius: root.cornerR
+        trConcave: root.isOpen ? root.concaveR : 0
+        brConcave: root.isOpen ? root.concaveR : 0
     }
 
-    radius: Tokens.rounding.extraLarge
-    color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
-
-    implicitWidth: inner.implicitWidth + Tokens.padding.large * 2
-    implicitHeight: inner.implicitHeight + Tokens.padding.large * 2
-
     ColumnLayout {
-        id: inner
+        id: body
 
         x: Tokens.padding.large
         y: Tokens.padding.large
@@ -32,7 +42,7 @@ StyledClippingRect {
         Loader {
             id: loader
 
-            active: root.visible
+            active: root.isOpen
             sourceComponent: {
                 switch (popoutState.currentName) {
                 case "audio":

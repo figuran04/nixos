@@ -20,11 +20,13 @@ Scope {
             anchors.bottom: true
             color: "transparent"
 
-            exclusiveZone: dock.width + Tokens.padding.large * 2
+            exclusiveZone: dockWrapper.width
 
             Bar.PopoutState {
                 id: popoutState
             }
+
+            readonly property bool popoutOpen: popoutState.hasCurrent
 
             RowLayout {
                 anchors.fill: parent
@@ -34,72 +36,80 @@ Scope {
                     Layout.fillWidth: true
                 }
 
-                StyledRect {
-                    id: dock
-
+                Item {
+                    id: dockWrapper
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignRight
+                    implicitWidth: Tokens.sizes.bar.innerWidth + Tokens.padding.large * 2
 
-                    color: Colours.palette.m3surfaceContainer
-                    radius: Tokens.rounding.extraLarge
-                    implicitWidth: Tokens.sizes.bar.innerWidth
-
-                    ColumnLayout {
-                        id: col
+                    AdaptiveRoundedRect {
+                        id: dock
 
                         anchors.fill: parent
-                        anchors.margins: Tokens.padding.medium
-                        spacing: Tokens.spacing.medium
+                        anchors.margins: Tokens.padding.large
 
-                        Bar.Workspaces {}
+                        color: Colours.palette.m3surfaceContainer
+                        tlRadius: Tokens.rounding.extraLarge
+                        trRadius: Tokens.rounding.extraLarge
+                        blRadius: Tokens.rounding.extraLarge
+                        brRadius: Tokens.rounding.extraLarge
+                        tlConcave: win.popoutOpen ? Tokens.rounding.medium : 0
+                        blConcave: win.popoutOpen ? Tokens.rounding.medium : 0
 
-                        Item {
-                            Layout.fillHeight: true
-                        }
+                        ColumnLayout {
+                            id: col
 
-                        Bar.StatusIcons {
-                            popoutState: popoutState
-                        }
+                            anchors.fill: parent
+                            anchors.margins: Tokens.padding.medium
+                            spacing: Tokens.spacing.medium
 
-                        Bar.Tray {}
+                            Bar.Workspaces {}
 
-                        Item {
-                            width: Tokens.sizes.bar.innerWidth - Tokens.padding.medium * 2
-                            height: width
-
-                            MaterialIcon {
-                                anchors.centerIn: parent
-                                text: "grid_view"
-                                color: Colours.palette.m3secondary
-                                fontStyle: Tokens.font.icon
+                            Item {
+                                Layout.fillHeight: true
                             }
 
-                            MouseArea {
-                                anchors.fill: parent
-                                hoverEnabled: true
-                                cursorShape: Qt.PointingHandCursor
-                                onEntered: parent.opacity = 0.7
-                                onExited: parent.opacity = 1
-                                onClicked: LauncherState.toggle()
+                            Bar.StatusIcons {
+                                popoutState: popoutState
                             }
 
-                            Behavior on opacity {
-                                Anim { type: Anim.DefaultEffects }
+                            Bar.Tray {}
+
+                            Item {
+                                width: Tokens.sizes.bar.innerWidth - Tokens.padding.medium * 2
+                                height: width
+
+                                MaterialIcon {
+                                    anchors.centerIn: parent
+                                    text: "grid_view"
+                                    color: Colours.palette.m3secondary
+                                    fontStyle: Tokens.font.icon
+                                }
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    cursorShape: Qt.PointingHandCursor
+                                    onEntered: parent.opacity = 0.7
+                                    onExited: parent.opacity = 1
+                                    onClicked: LauncherState.toggle()
+                                }
+
+                                Behavior on opacity {
+                                    Anim { type: Anim.DefaultEffects }
+                                }
                             }
-                        }
 
-                        Bar.Clock {}
+                            Bar.Clock {}
 
-                        Bar.Power {
-                            popoutState: popoutState
+                            Bar.Power {
+                                popoutState: popoutState
+                            }
                         }
                     }
                 }
             }
 
-            // The active popout is a separate floating window anchored to the
-            // left of the dock (like Caelestia's popout wrapper), so a large
-            // popout never inflates the bar or breaks through the screen.
             PopupWindow {
                 id: popout
 
@@ -113,7 +123,7 @@ Scope {
 
                 readonly property int sideGap: Tokens.spacing.medium
 
-                anchor.rect.x: win.width - dock.width - width - popout.sideGap
+                anchor.rect.x: win.width - dockWrapper.width - width - popout.sideGap
                 anchor.rect.y: Math.max(
                     Tokens.padding.medium,
                     Math.min(
@@ -130,11 +140,10 @@ Scope {
                 }
             }
 
-            // Transient "now focused" popup shown on window switch.
             Bar.ActiveWindow {
                 anchorWindow: win
                 panelWidth: win.width
-                dockWidth: dock.width
+                dockWidth: dockWrapper.width
             }
         }
     }
