@@ -30,41 +30,46 @@ PanelWindow {
     implicitHeight: Tokens.sizes.bar.innerWidth + Tokens.padding.large * 2
 
     visible: root.isOpen
-    opacity: root.isOpen ? 1 : 0
 
-    Behavior on opacity {
-        NumberAnimation { duration: Tokens.anim.durations.expressiveDefaultSpatial; easing.type: Tokens.anim.expressiveDefaultSpatial }
-    }
-
-    AdaptiveRoundedRect {
-        id: bg
+    Item {
+        id: fade
         anchors.fill: parent
+        opacity: root.isOpen ? 1 : 0
 
-        color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
-        borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
-        borderWidth: 1
-        tlRadius: root.cornerR
-        trRadius: root.isOpen ? 0 : root.cornerR
-        blRadius: root.cornerR
-        brRadius: root.isOpen ? 0 : root.cornerR
-        trConcave: root.isOpen ? root.concaveR : 0
-        brConcave: root.isOpen ? root.concaveR : 0
+        Behavior on opacity {
+            NumberAnimation { duration: Tokens.anim.durations.expressiveDefaultSpatial; easing.type: Tokens.anim.expressiveDefaultSpatial }
+        }
 
-        Loader {
-            id: contentLoader
+        AdaptiveRoundedRect {
+            id: bg
             anchors.fill: parent
-            anchors.margins: Tokens.padding.medium
-            sourceComponent: {
-                switch (root.current) {
-                case "audio": return audioComponent;
-                case "network": return networkComponent;
-                case "bluetooth": return bluetoothComponent;
-                case "battery": return batteryComponent;
-                case "media": return mediaComponent;
-                case "clipboard": return clipboardComponent;
-                case "dashboard": return dashboardComponent;
-                case "power": return powerComponent;
-                default: return null;
+
+            color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
+            borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
+            borderWidth: 1
+            tlRadius: root.cornerR
+            trRadius: root.isOpen ? 0 : root.cornerR
+            blRadius: root.cornerR
+            brRadius: root.isOpen ? 0 : root.cornerR
+            trConcave: root.isOpen ? root.concaveR : 0
+            brConcave: root.isOpen ? root.concaveR : 0
+
+            Loader {
+                id: contentLoader
+                anchors.fill: parent
+                anchors.margins: Tokens.padding.medium
+                sourceComponent: {
+                    switch (root.current) {
+                    case "audio": return audioComponent;
+                    case "network": return networkComponent;
+                    case "bluetooth": return bluetoothComponent;
+                    case "battery": return batteryComponent;
+                    case "media": return mediaComponent;
+                    case "clipboard": return clipboardComponent;
+                    case "dashboard": return dashboardComponent;
+                    case "power": return powerComponent;
+                    default: return null;
+                    }
                 }
             }
         }

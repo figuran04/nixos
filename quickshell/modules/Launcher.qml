@@ -17,13 +17,17 @@ PanelWindow {
     anchors.bottom: true
 
     visible: LauncherState.visible
-    opacity: visible ? 1 : 0
 
-    Behavior on opacity {
-        NumberAnimation { duration: Tokens.anim.durations.expressiveDefaultSpatial; easing.type: Tokens.anim.expressiveDefaultSpatial }
-    }
+    Item {
+        id: fade
+        anchors.fill: parent
+        opacity: LauncherState.visible ? 1 : 0
 
-    AdaptiveRoundedRect {
+        Behavior on opacity {
+            NumberAnimation { duration: Tokens.anim.durations.expressiveDefaultSpatial; easing.type: Tokens.anim.expressiveDefaultSpatial }
+        }
+
+        AdaptiveRoundedRect {
         anchors.centerIn: parent
         width: Math.min(480, parent.width * 0.6)
         height: Math.min(500, parent.height * 0.7)
@@ -142,6 +146,7 @@ PanelWindow {
                 }
             }
         }
+    }
     }
 
     onActiveChanged: if (!active) LauncherState.hide()

@@ -21,45 +21,50 @@ PanelWindow {
     property bool show: false
 
     visible: show
-    opacity: show ? 1 : 0
 
-    Behavior on opacity {
-        NumberAnimation { duration: Tokens.anim.durations.fast }
-    }
-
-    AdaptiveRoundedRect {
+    Item {
+        id: fade
         anchors.fill: parent
-        anchors.margins: Tokens.padding.large
-        color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
-        borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
-        borderWidth: 1
-        tlRadius: Tokens.rounding.large
-        trRadius: Tokens.rounding.large
-        blRadius: Tokens.rounding.large
-        brRadius: Tokens.rounding.large
+        opacity: root.show ? 1 : 0
 
-        RowLayout {
+        Behavior on opacity {
+            NumberAnimation { duration: Tokens.anim.durations.fast }
+        }
+
+        AdaptiveRoundedRect {
             anchors.fill: parent
-            anchors.margins: Tokens.padding.medium
-            spacing: Tokens.spacing.medium
+            anchors.margins: Tokens.padding.large
+            color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
+            borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
+            borderWidth: 1
+            tlRadius: Tokens.rounding.large
+            trRadius: Tokens.rounding.large
+            blRadius: Tokens.rounding.large
+            brRadius: Tokens.rounding.large
 
-            MaterialIcon {
-                icon: Icons.getVolumeIcon(Audio.volume, Audio.muted)
-                iconSize: Tokens.sizes.popout.iconSize
-                iconColor: Colours.palette.m3primary
-            }
+            RowLayout {
+                anchors.fill: parent
+                anchors.margins: Tokens.padding.medium
+                spacing: Tokens.spacing.medium
 
-            Slider {
-                Layout.fillWidth: true
-                from: 0
-                to: 100
-                value: root.volume
-            }
+                MaterialIcon {
+                    icon: Icons.getVolumeIcon(Audio.volume, Audio.muted)
+                    iconSize: Tokens.sizes.popout.iconSize
+                    iconColor: Colours.palette.m3primary
+                }
 
-            StyledText {
-                text: root.volume + "%"
-                font.pixelSize: 12
-                textColor: Colours.palette.m3onSurfaceVariant
+                Slider {
+                    Layout.fillWidth: true
+                    from: 0
+                    to: 100
+                    value: root.volume
+                }
+
+                StyledText {
+                    text: root.volume + "%"
+                    font.pixelSize: 12
+                    textColor: Colours.palette.m3onSurfaceVariant
+                }
             }
         }
     }

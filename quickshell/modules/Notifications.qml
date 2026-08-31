@@ -36,13 +36,17 @@ Scope {
 
         implicitWidth: 360
         visible: notifications.trackedNotifications.count > 0
-        opacity: visible ? 1 : 0
 
-        Behavior on opacity {
-            NumberAnimation { duration: Tokens.anim.durations.fast }
-        }
+        Item {
+            id: fade
+            anchors.fill: parent
+            opacity: visible ? 1 : 0
 
-        ColumnLayout {
+            Behavior on opacity {
+                NumberAnimation { duration: Tokens.anim.durations.fast }
+            }
+
+            ColumnLayout {
             anchors.fill: parent
             anchors.margins: Tokens.padding.large
             spacing: Tokens.spacing.small
@@ -55,6 +59,7 @@ Scope {
                     Layout.fillWidth: true
                     notification: modelData
                 }
+            }
             }
         }
     }
