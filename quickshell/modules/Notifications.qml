@@ -35,7 +35,7 @@ Scope {
         exclusiveZone: 0
 
         implicitWidth: 360
-        visible: notifications.trackedNotifications.length > 0
+        visible: notifications.trackedNotifications.count > 0
         opacity: visible ? 1 : 0
 
         Behavior on opacity {

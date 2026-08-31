@@ -31,11 +31,10 @@ Column {
 
             width: 16
             height: 4
-            radius: 2
 
             Rectangle {
                 anchors.fill: parent
-                radius: parent.radius
+                radius: 2
                 color: modelData.isActive
                     ? Colours.palette.m3primary
                     : modelData.isUrgent
