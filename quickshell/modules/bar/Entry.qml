@@ -51,7 +51,6 @@ Item {
 
     HoverHandler {
         id: bgHover
-        hoverEnabled: true
     }
 
     TapHandler {

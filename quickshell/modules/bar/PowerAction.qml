@@ -35,7 +35,7 @@ Item {
         }
     }
 
-    HoverHandler { id: hov; hoverEnabled: true }
+    HoverHandler { id: hov }
 
     TapHandler {
         onTapped: {
