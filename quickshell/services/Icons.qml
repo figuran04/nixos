@@ -1,5 +1,6 @@
 pragma Singleton
 
+import Quickshell
 import QtQuick
 
 // Helper mapping for Material Symbols icons used across the shell.

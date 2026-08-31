@@ -1,5 +1,6 @@
 pragma Singleton
 
+import Quickshell
 import QtQuick
 
 // Central design tokens for the shell, mirroring Noctalia's Material 3 look.

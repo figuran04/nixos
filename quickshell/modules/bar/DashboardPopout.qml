@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import "../components"
-import "../services"
+import "../../components"
+import "../../services"
 
 // System dashboard popout.
 ColumnLayout {

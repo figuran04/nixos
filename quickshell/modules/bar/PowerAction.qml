@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import "../components"
-import "../services"
+import "../../components"
+import "../../services"
 
 // A labelled action button used in the power popout.
 Item {

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import "../components"
-import "../services"
+import "../../components"
+import "../../services"
 
 // A labelled stat tile used in the dashboard popout.
 ColumnLayout {

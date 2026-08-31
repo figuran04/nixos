@@ -1,7 +1,7 @@
 import Quickshell
 import QtQuick
-import "../components"
-import "../services"
+import "../../components"
+import "../../services"
 
 // Floating panel that appears to the left of the dock when a popout opens.
 // The concave corners face right (toward the dock), matching Noctalia.

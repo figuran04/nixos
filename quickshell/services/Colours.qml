@@ -1,5 +1,6 @@
 pragma Singleton
 
+import Quickshell
 import QtQuick
 
 // Material 3 colour system (dark), tuned toward Noctalia's look.

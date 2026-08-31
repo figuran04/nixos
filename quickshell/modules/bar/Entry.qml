@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
-import "../components"
-import "../services"
+import "../../components"
+import "../../services"
 
 // A clickable, hoverable icon button used throughout the dock.
 Item {

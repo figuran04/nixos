@@ -1,6 +1,6 @@
 import QtQuick
-import "../components"
-import "../services"
+import "../../components"
+import "../../services"
 
 // Power / lock entry at the bottom of the dock.
 Entry {

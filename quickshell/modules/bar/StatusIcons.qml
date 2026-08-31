@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import "../components"
-import "../services"
+import "../../components"
+import "../../services"
 import "./"
 
 // Clickable status icons in the dock, each toggling a popout panel.

@@ -1,6 +1,6 @@
 import QtQuick
-import "../services"
-import "../components"
+import "../../services"
+import "../../components"
 
 // Vertical workspace indicator for Niri, filtered to the bar's own output.
 Column {

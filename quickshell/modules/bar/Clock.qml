@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import "../services"
-import "../components"
+import "../../services"
+import "../../components"
 
 // Vertical time + date display for the dock.
 ColumnLayout {
