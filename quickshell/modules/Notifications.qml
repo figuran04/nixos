@@ -47,6 +47,8 @@ Scope {
                         readonly property bool isSingle: notifCount === 1
 
                         color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
+                        borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
+                        borderWidth: 1
                         implicitWidth: col.width
                         implicitHeight: body.implicitHeight + Tokens.padding.medium * 2
 

@@ -49,6 +49,8 @@ Scope {
                         anchors.margins: Tokens.padding.large
 
                         color: Colours.palette.m3surfaceContainer
+                        borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
+                        borderWidth: 1
                         tlRadius: Tokens.rounding.extraLarge
                         trRadius: Tokens.rounding.extraLarge
                         blRadius: Tokens.rounding.extraLarge

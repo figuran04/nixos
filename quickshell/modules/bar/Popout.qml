@@ -25,6 +25,8 @@ Item {
         anchors.fill: parent
 
         color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.96)
+        borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
+        borderWidth: 1
         tlRadius: root.cornerR
         trRadius: root.cornerR
         blRadius: root.cornerR

@@ -73,6 +73,8 @@ Scope {
                     trRadius: Tokens.rounding.extraLarge
                     blRadius: Tokens.rounding.extraLarge
                     brRadius: Tokens.rounding.extraLarge
+                    borderColor: Colours.withAlpha(Colours.palette.m3outline, 0.35)
+                    borderWidth: 1
                     color: Colours.layer(Colours.palette.m3surfaceContainerHigh, 0.97)
 
                     ColumnLayout {

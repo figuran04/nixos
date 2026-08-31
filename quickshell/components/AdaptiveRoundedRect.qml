@@ -2,19 +2,22 @@ import QtQuick
 
 // Adaptive rounded rectangle with per-corner control.
 // Supports convex rounding AND concave (inverse / embossed) corner cuts,
-// inspired by Noctalia's flexible panel shapes, implemented with a Canvas
-// so it needs no C++ shader plugin. All radii animate smoothly.
+// plus a border that follows the exact same shape (convex + concave),
+// inspired by Noctalia's WrapperRectangle / ClippingRectangle panel borders,
+// implemented with a Canvas so it needs no C++ shader plugin. All radii
+// animate smoothly.
 //
-// Rendering technique: the full convex rounded-rectangle outline is drawn
-// first, then each concave corner is punched out with a quarter-disc subpath
-// (centred on the corner, spanning its two edges) using the even-odd fill
-// rule. This cleanly creates a recessed / embossed corner exactly like a
-// Noctalia panel merging with its popout partner, without needing to know
-// the background colour.
+// Rendering technique: a single path is built containing the convex
+// rounded-rectangle outline PLUS each concave corner's quarter-disc subpath.
+// The panel is filled with the even-odd rule (concave discs become recessed
+// holes) and the border is stroked along that same path so it hugs the exact
+// panel shape, including the recessed corners.
 Item {
     id: root
 
     property color color: "transparent"
+    property color borderColor: "transparent"
+    property real borderWidth: 0
     property real tlRadius: 0
     property real trRadius: 0
     property real blRadius: 0
@@ -29,6 +32,8 @@ Item {
     readonly property alias contentItem: contentItem
 
     onColorChanged: canvas.requestPaint()
+    onBorderColorChanged: canvas.requestPaint()
+    onBorderWidthChanged: canvas.requestPaint()
     onTlRadiusChanged: canvas.requestPaint()
     onTrRadiusChanged: canvas.requestPaint()
     onBlRadiusChanged: canvas.requestPaint()
@@ -86,9 +91,10 @@ Item {
             const cBr = Math.max(0, Math.min(root.brConcave, maxR));
             const cBl = Math.max(0, Math.min(root.blConcave, maxR));
 
+            // ---- Build the combined outline path (outer rect + concave cuts) ----
             ctx.beginPath();
 
-            // ---- 1. Outer convex rounded rectangle (clockwise) ----
+            // 1. Outer convex rounded rectangle (clockwise).
             ctx.moveTo(tl, 0);
             ctx.lineTo(w - tr, 0);
             if (tr > 0) ctx.quadraticCurveTo(w, 0, w, tr);
@@ -104,17 +110,24 @@ Item {
             else ctx.lineTo(0, 0);
             ctx.closePath();
 
-            // ---- 2. Concave corner punch-outs (even-odd) ----
-            // Each is a quarter-disc centred ON the corner point (radius r)
-            // spanning the two adjacent edges; as a subpath with the even-odd
-            // fill rule it carves a recessed / embossed corner out of the panel.
+            // 2. Concave quarter-disc punch-outs (even-odd holes at the corners).
             if (cTl > 0) { ctx.moveTo(0, 0); ctx.arc(0, 0, cTl, 0, Math.PI / 2, false); ctx.closePath(); }
             if (cTr > 0) { ctx.moveTo(w, 0); ctx.arc(w, 0, cTr, Math.PI / 2, Math.PI, false); ctx.closePath(); }
             if (cBr > 0) { ctx.moveTo(w, h); ctx.arc(w, h, cBr, Math.PI, -Math.PI / 2, false); ctx.closePath(); }
             if (cBl > 0) { ctx.moveTo(0, h); ctx.arc(0, h, cBl, -Math.PI / 2, 0, false); ctx.closePath(); }
 
-            ctx.fillStyle = Qt.rgba(root.color.r, root.color.g, root.color.b, root.color.a);
+            // ---- Fill the panel ----
+            const bg = Qt.rgba(root.color.r, root.color.g, root.color.b, root.color.a);
+            ctx.fillStyle = bg;
             ctx.fill("evenodd");
+
+            // ---- Border hugging the exact same outline ----
+            if (root.borderColor.a > 0 && root.borderWidth > 0) {
+                const bc = Qt.rgba(root.borderColor.r, root.borderColor.g, root.borderColor.b, root.borderColor.a);
+                ctx.strokeStyle = bc;
+                ctx.lineWidth = Math.min(root.borderWidth, Math.min(w, h) / 2);
+                ctx.stroke();
+            }
         }
     }
 
