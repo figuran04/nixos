@@ -7,7 +7,7 @@ QtObject {
     property string currentSide: ""
     readonly property bool hasCurrent: currentName !== ""
 
-    function request(name: string, side: string = "left"): void {
+    function request(name: string, side: string): void {
         if (root.currentName === name) {
             root.currentName = "";
             root.currentSide = "";

@@ -27,7 +27,7 @@ StyledRect {
         hoverEnabled: true
         onEntered: parent.opacity = 0.7
         onExited: parent.opacity = 1
-        onClicked: root.popoutState.request("power")
+        onClicked: root.popoutState.request("power", "left")
     }
 
     Behavior on opacity {
