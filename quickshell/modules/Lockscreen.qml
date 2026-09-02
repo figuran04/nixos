@@ -11,6 +11,7 @@ PanelWindow {
 
     color: "#cc111111"
     exclusiveZone: 0
+    focusable: true
 
     // Cover the full screen at the lowest exclusive zone.
     anchors.top: true
@@ -78,12 +79,14 @@ PanelWindow {
         running: false
     }
 
-    Keys.onEscapePressed: {
-        root.visible = false;
-        unlockProc.running = true;
+    // Catch keys to unlock when visible. Put this last so it sits on top.
+    Item {
+        id: keyCatcher
+        anchors.fill: parent
+        focus: root.visible
+        Keys.onEscapePressed: {
+            root.visible = false;
+            unlockProc.running = true;
+        }
     }
-
-    // Allow focus.
-    focus: visible
-    onVisibleChanged: if (visible) forceActiveFocus()
 }
