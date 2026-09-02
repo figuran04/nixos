@@ -16,25 +16,10 @@
     ./home/shell.nix
     ./home/git.nix
     ./home/apps.nix
+    ./home/noctalia.nix
+    ./home/waterfox.nix
     inputs.noctalia.homeModules.default
   ];
-
-  programs.noctalia = {
-    enable = true;
-    settings = {
-      theme = {
-        mode = "dark";
-        source = "builtin";
-        builtin = "Catppuccin";
-      };
-      wallpaper = {
-        enabled = true;
-        # Taruh gambar wallpaper di sini, atau pilih dari Settings Noctalia
-        # (Wallpaper browser menyimpan pilihan GUI secara terpisah).
-        default.path = "/home/figuran04/Pictures/wallpaper.png";
-      };
-    };
-  };
 
   programs.home-manager.enable = true;
 
