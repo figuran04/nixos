@@ -23,6 +23,10 @@ ColumnLayout {
         iconSize: 48
         iconColor: Colours.palette.m3primary
         Layout.alignment: Qt.AlignHCenter
+
+        TapHandler {
+            onTapped: Media.toggle()
+        }
     }
 
     StyledText {

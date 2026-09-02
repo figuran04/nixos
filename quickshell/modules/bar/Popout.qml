@@ -27,7 +27,7 @@ PanelWindow {
     exclusiveZone: 0
 
     implicitWidth: 360
-    implicitHeight: Tokens.sizes.bar.innerWidth + Tokens.padding.large * 2
+    implicitHeight: 340
 
     visible: root.isOpen
 
