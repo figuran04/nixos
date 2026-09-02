@@ -5,5 +5,5 @@
 
 // spawn-at-startup "waybar"
 
-// Quickshell desktop shell (bar, tray, notifications, lockscreen, ...)
-spawn-at-startup "quickshell"
+// Noctalia desktop shell (bar, tray, notifications, launcher, lockscreen, ...)
+spawn-at-startup "noctalia"

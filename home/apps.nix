@@ -1,20 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  # Supporting apps for the Quickshell desktop shell.
+  # Supporting apps for the Noctalia desktop shell.
   #
-  # - wl-clipboard: wl-paste/wl-copy, required by the clipboard-history
-  #   service (services/Clipboard.qml). Without it the Clipboard popout
-  #   can neither watch the clipboard nor copy entries back.
+  # - wl-clipboard: wl-paste/wl-copy, used by Noctalia's clipboard history
+  #   and handy on the command line.
   # - playerctl: MPRIS control used by the media-key binds in
-  #   niri/binds.kdl (and handy to inspect players for the Dashboard
-  #   media section).
-  #
-  # System Tray, Launcher, ActiveWindow, and Dashboard read /proc, D-Bus
-  # and the .desktop index directly via Quickshell, so they need no
-  # external program.
+  #   niri/binds.kdl.
   home.packages = with pkgs; [
-    fuzzel
     tree
     wl-clipboard
     playerctl

@@ -67,3 +67,27 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
+
+// =========================================================
+// Noctalia desktop shell
+// =========================================================
+
+// Floating Noctalia settings window.
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
+
+// Blurred overview wallpaper (Noctalia backdrop layer inside Niri's overview
+// backdrop). Requires Noctalia's [niri/backdrop] section enabled.
+layer-rule {
+    match namespace="^noctalia-backdrop"
+    place-within-backdrop true
+}
+
+// Allow notification actions and window activation from Noctalia.
+debug {
+    honor-xdg-activation-with-invalid-serial
+}

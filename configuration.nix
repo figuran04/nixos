@@ -25,6 +25,8 @@
   security.rtkit.enable = true;
   services.upower.enable = true;
   hardware.bluetooth.enable = true;
+  # Noctalia's power-profile feature needs a power profile service.
+  services.power-profiles-daemon.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
   hardware.cpu.amd.updateMicrocode = true;
