@@ -10,6 +10,7 @@ PanelWindow {
 
     color: "transparent"
     exclusiveZone: 0
+    focusable: true
 
     anchors.top: true
     anchors.left: true
