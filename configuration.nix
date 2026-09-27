@@ -36,6 +36,9 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
+  # GTK apps butuh dconf/gsettings di lingkungan managed (NixOS/HM).
+  programs.dconf.enable = true;
+
   programs.niri = {
     enable = true;
   };

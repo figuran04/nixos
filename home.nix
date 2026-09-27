@@ -17,15 +17,10 @@
     ./home/git.nix
     ./home/apps.nix
     ./home/noctalia.nix
-    ./home/waterfox.nix
+    ./home/gtk.nix
+    ./home/fonts.nix
     inputs.noctalia.homeModules.default
   ];
 
   programs.home-manager.enable = true;
-
-  home.packages = [
-    pkgs.material-symbols
-    pkgs.noto-fonts
-    pkgs.jetbrains-mono
-  ];
 }

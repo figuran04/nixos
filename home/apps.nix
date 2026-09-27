@@ -8,6 +8,7 @@
   # - playerctl: MPRIS control used by the media-key binds in
   #   niri/binds.kdl.
   home.packages = with pkgs; [
+    firefox
     tree
     wl-clipboard
     playerctl

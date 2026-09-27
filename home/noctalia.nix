@@ -5,6 +5,11 @@
   ...
 }:
 {
+  # Folder tempat gambar wallpaper ditaruh. Kosong sampai diisi sendiri;
+  # picker wallpaper Noctalia membaca folder ini (isian GUI tersimpan
+  # terpisah di ~/.config/noctalia/settings.toml).
+  home.file."Pictures/wallpapers".directory = true;
+
   # Noctalia v5 — konfigurasi shell (diadaptasi dari template v4: bar atas,
   # layout widget, tema dark Catppuccin, wallpaper, shortcut Control Center).
   # Keys mengikuti schema TOML v5 (snake_case), di-set lewat module
@@ -24,10 +29,10 @@
         transition = [ "fade" ];
         transition_duration = 1200;
         directory = "/home/figuran04/Pictures/wallpapers";
-        default.path = "/home/figuran04/Pictures/wallpaper.png";
       };
 
       shell = {
+        font_family = "Geist Mono";
         telemetry_enabled = false;
         setup_wizard_enabled = true;
       };
