@@ -3,6 +3,7 @@
   pkgs,
   ...
 }:
+
 {
   # GTK theming supaya aplikasi GTK (Firefox, dsb.) tampil konsisten &
   # match tema gelap Noctalia (M3/libadwaita look via adw-gtk3).
@@ -36,7 +37,8 @@
       size = 11;
     };
 
-    extraConfig = {
+    # Diubah dari extraConfig menjadi gtk3.extraConfig
+    gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
     };
   };

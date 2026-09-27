@@ -3,6 +3,11 @@
 result
 result-*
 
+# === Config Hardware Per-Device ===
+# Hasil dari `nixos-generate-config`, dibuat di tiap mesin target.
+# JANGAN di-commit — flake.nix tetap meng-import-nya saat evaluasi.
+hardware-configuration.nix
+
 # === File Rahasia / Sensitif (Opsional tapi Penting) ===
 # Jika suatu hari Anda menyimpan password atau token API di file terpisah
 *.secret
