@@ -15,6 +15,10 @@ hardware-configuration.nix
 secret.nix
 secrets/
 
+# === Direnv ===
+# Cache direnv/nix-direnv — dibuat otomatis, tidak perlu di-commit.
+.direnv/
+
 # === Backup & File Sementara ===
 # File sementara yang dibuat oleh teks editor seperti Nano atau Vim saat mengedit
 *.swp
