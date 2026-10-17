@@ -1,6 +1,6 @@
-# NixOS + Niri + Noctalia
+# NixOS + Niri + Quickshell
 
-Flake NixOS untuk desktop **Niri** + **Noctalia v5** (desktop shell) + **Home Manager**.
+Flake NixOS untuk desktop **Niri** + **Quickshell** + **Home Manager**.
 
 > **Kunci fleksibilitas:** konfigurasi hardware **tidak pernah di-commit**.
 > File `hardware-configuration.nix` selalu dibuat otomatis oleh
@@ -20,8 +20,9 @@ Ada **dua config** di `flake.nix`:
 flake.nix | flake.lock     # definisi flake (nixosConfigurations: default & hp)
 configuration.nix           # setting sistem: network, pipewire, niri, greetd, dll
 home.nix                    # entry Home Manager untuk user figuran04
-home/*.nix                  # modul HM: niri, terminal, shell, gtk, fonts, noctalia, dll
+home/*.nix                  # modul HM: niri, terminal, shell, gtk, fonts, quickshell, dll
 niri/*.kdl                  # konfigurasi Niri (binds, startup, dll)
+quickshell/shell.qml        # config bar Quickshell (dipasang ke ~/.config/quickshell)
 hardware-configuration.nix  # HASIL GENERATE — jangan diedit manual / di-commit
 ```
 
@@ -120,7 +121,7 @@ reboot
 git clone <URL-repo-kamu> ~/nixos
 cp /root/hardware-configuration.nix ~/nixos/  # backup langkah 5 masih di /root
 cd ~/nixos
-nix flake lock --update-input noctalia   # sekalian input yang belum ada di lock
+nix flake lock   # update lock file jika input berubah
 sudo nixos-rebuild switch --flake .#default
 ```
 

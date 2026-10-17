@@ -16,10 +16,9 @@
     ./home/shell.nix
     ./home/git.nix
     ./home/apps.nix
-    ./home/noctalia.nix
+    ./home/quickshell.nix
     ./home/gtk.nix
     ./home/fonts.nix
-    inputs.noctalia.homeModules.default
   ];
 
   programs.home-manager.enable = true;

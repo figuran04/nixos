@@ -6,7 +6,7 @@
 
 {
   # GTK theming supaya aplikasi GTK (Firefox, dsb.) tampil konsisten &
-  # match tema gelap Noctalia (M3/libadwaita look via adw-gtk3).
+  # match tema gelap desktop (M3/libadwaita look via adw-gtk3).
   home.packages = with pkgs; [
     adw-gtk3            # tema libadwaita untuk aplikasi GTK3
     papirus-icon-theme  # set ikon lengkap
